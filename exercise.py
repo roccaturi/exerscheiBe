@@ -15,7 +15,6 @@ def main():
     regime = collect()
     start = int(raw_input("Which line of the exercise script would you like to begin with? ")) - 1
     regime = regime[start:]
-    pause()
     say("Ready?")
     time.sleep(1)
     for exercise in regime:
@@ -42,38 +41,36 @@ def coach(exercise):
         say(duration + "repetitions. Press Enter when complete.")
         play()
         await_cmd(exercise)
-        pause()
     elif unit == " sec":
         say(duration + "seconds. Press Enter when ready to begin.")
         await_cmd(exercise)
-        say("Begin")
+        say("Begin.")
         play()
         time.sleep(float(duration))
-        pause()
-        say("Stop.  Press Enter to continue.")
-        await_cmd(exercise)
+        say("Stop.")
     elif unit == " adv":
+        say(duration + "seconds.")
         play()
         time.sleep(float(duration))
-        pause()
     else:
-        raise ValueError("Variable unit is not recognized.")
+        raise ValueError("Variable 'unit' is not recognized.")
 
 def say(msg):
-    """Assumes msg is of type str.  Calls os method say to convert msg to speech."""
+    """Assumes msg is of type str.  Calls pause and then os method say to convert msg to speech."""
+    pause()
     os.system("say " + msg)
 
 def await_cmd(exercise):
     global repeat
-    done = False
-    while not done:
+    while True:
         key_press = raw_input("Press ENTER or special command. ") 
         if key_press == '':
-            done = True
+            break
         elif key_press == "h":
             help()
         elif key_press == "r":
             repeat = True
+            break
         elif key_press == 'm':
             move()
         elif key_press == "l":
