@@ -27,8 +27,8 @@ def main():
 def collect(filename=None):
     """Assumes filename of type str or requests filename from the user if none provided.  Returns contents of filename as a list of lines.""" 
     if not filename:
-        filename = str(raw_input("What is the name of the file (including extentions) for the exercise regime you would like to run? "))
-    read_only_file = open(filename, 'r')
+        filename = "regimes/" + str(raw_input("What is the name of the file for the exercise regime you would like to run? ")) + ".csv"
+    read_only_file = open(filename, "r")
     file_contents = read_only_file.readlines()
     return file_contents
 
@@ -64,14 +64,14 @@ def await_cmd(exercise):
     global repeat
     while True:
         key_press = raw_input("Press ENTER or special command. ") 
-        if key_press == '':
+        if key_press == "":
             break
         elif key_press == "h":
             help()
         elif key_press == "r":
             repeat = True
             break
-        elif key_press == 'm':
+        elif key_press == "m":
             move()
         elif key_press == "l":
             log(exercise)
